@@ -43,9 +43,9 @@ function App() {
             {/* Background PNG treated as a floating element */}
             <img 
               src={homeBg} 
-              alt="" 
-              className="absolute top-[70px] left-0 w-screen pointer-events-none -z-10"
-              style={{ transform: 'scaleX(1.1)', transformOrigin: 'center top' }}
+              alt=""  
+              className="absolute top-[40px] left-0 w-screen pointer-events-none -z-10"
+              style={{ transform: 'scaleX(1.15)', transformOrigin: 'center top' }}
             />
             <div className="relative z-10">
               <HeroSection />

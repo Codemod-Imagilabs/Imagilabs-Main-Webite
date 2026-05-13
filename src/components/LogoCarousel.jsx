@@ -18,9 +18,12 @@ const logoData = [
 const LogoCarousel = () => {
   return (
     <section className="w-full bg-transparent py-24 relative z-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto border-y border-black/[0.08] dark:border-white/[0.15] py-12 md:py-16 relative">
+      {/* Top border line - constrained like before */}
+      <div className="max-w-7xl mx-auto border-t border-black/[0.08] dark:border-white/[0.15]" />
+      {/* Logos scroll full width */}
+      <div className="w-full py-12 md:py-16 relative overflow-hidden">
         {/* Simplified Loop: No overlapping, just a clean row */}
-        <div className="flex w-fit animate-marquee gap-24 md:gap-40 px-10">
+        <div className="flex w-fit animate-marquee gap-24 md:gap-40 px-10" style={{ transform: 'translateX(-33.33%)' }}>
           {/* First Set */}
           {logoData.map((logo) => (
             <div 
@@ -34,7 +37,7 @@ const LogoCarousel = () => {
               />
             </div>
           ))}
-          {/* Second Set (identical repeat for seamlessness) */}
+          {/* Second Set */}
           {logoData.map((logo) => (
             <div 
               key={`logo2-${logo.id}`} 
@@ -47,8 +50,23 @@ const LogoCarousel = () => {
               />
             </div>
           ))}
+          {/* Third Set (ensures left side is never blank) */}
+          {logoData.map((logo) => (
+            <div 
+              key={`logo3-${logo.id}`} 
+              className="flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer scale-110 flex-shrink-0"
+            >
+              <img 
+                src={logo.img} 
+                alt={logo.name} 
+                className="h-10 md:h-12 w-auto object-contain filter brightness-125 contrast-125" 
+              />
+            </div>
+          ))}
         </div>
       </div>
+      {/* Bottom border line - constrained like before */}
+      <div className="max-w-7xl mx-auto border-b border-black/[0.08] dark:border-white/[0.15]" />
     </section>
   );
 };
