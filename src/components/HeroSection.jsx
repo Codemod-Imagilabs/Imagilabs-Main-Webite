@@ -105,7 +105,7 @@ const HeroSection = () => {
                 </div>
               </span>
             </span>
-            <span className="opacity-90">with AI</span>
+            <span className="opacity-90">with Ai</span>
           </span>
         </h1>
         
