@@ -5,22 +5,26 @@ const PortfolioSection = () => {
     {
       title: "LilacbySoi",
       category: "E-commerce Website",
-      description: ""
+      description: "A premium floral e-commerce platform built for high conversions.",
+      gif: "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJmNXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxxXLyKHzBm/giphy.gif"
     },
     {
       title: "TaskForge App",
       category: "Production Tracker WebApp",
-      description: ""
+      description: "A heavy-duty tracking tool for streamlining complex production workflows.",
+      gif: "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJmNXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lTfO7a4U8uM0h2/giphy.gif"
     },
     {
       title: "Shree Maruthi Industries",
       category: "Business Profile Website",
-      description: ""
+      description: "Corporate identity and digital presence for a leading industrial manufacturer.",
+      gif: "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJmNXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKVUn7iM8FMEU24/giphy.gif"
     },
     {
       title: "Voice Technology Startup",
-      category: "",
-      description: "Voxera builds voice assistants for enterprise use. They needed a branding refresh, product site, and live demo portal. Get for free for this product"
+      category: "AI Product Portal",
+      description: "Voxera builds voice assistants for enterprise use. Branding refresh and demo portal.",
+      gif: "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJmNXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKFv9S6E9D6v6eI/giphy.gif"
     }
   ];
 
@@ -44,6 +48,13 @@ const PortfolioSection = () => {
             <div key={index} className="group cursor-pointer">
               {/* Image Placeholder (Empty/Gray) */}
               <div className="aspect-[16/10] bg-white/60 dark:bg-white/[0.03] rounded-3xl mb-8 border border-white/80 dark:border-white/[0.05] group-hover:border-white dark:group-hover:border-white/[0.1] transition-all duration-500 overflow-hidden relative shadow-[0_8px_32px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] dark:shadow-none backdrop-blur-sm">
+                {project.gif && (
+                  <img 
+                    src={project.gif} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/50 dark:from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
 

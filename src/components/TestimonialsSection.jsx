@@ -7,32 +7,53 @@ const TestimonialsSection = () => {
   
   const testimonials = [
     {
-      quote: "The team delivered beyond our expectations. From strategy to execution, everything was on point. Our product finally looks and feels premium.",
-      name: "Abraham Doe",
-      title: "Product Designer",
-      rating: 5,
-      size: "small"
-    },
-    {
-      quote: "Working with this team has been a game-changer for our tech startup. Not only did they deliver a sleek and functional portfolio design, but they also helped us clarify our brand identity in the process. The collaboration felt seamless—fast turnaround times.",
-      name: "Abraham Doe",
-      title: "Product Designer",
-      rating: 5,
-      size: "large"
-    },
-    {
-      quote: "The best agency we've worked with. Clean code, stunning design, and very responsive communication throughout the project. Highly recommend their services.",
-      name: "Abraham Doe",
-      title: "Product Designer",
+      quote: "The team delivered beyond our expectations for LilacbySoi. The e-commerce experience is so smooth, and our customers frequently comment on how premium the site feels. From strategy to final execution, they were on point.",
+      name: "Sarah Jenkins",
+      title: "Founder, LilacbySoi",
       rating: 5,
       size: "medium"
     },
     {
-      quote: "From our first call, it was clear we were working with professionals. The way they handle the project, communicated updates, and delivered creative solutions was amazing. It really stood out was their minimalist aesthetic",
-      name: "Abraham Doe",
-      title: "Product Designer",
+      quote: "Working with this team on the TaskForge app was a game-changer. They built a complex production tracker that is actually intuitive to use. It's rare to find developers who understand both high-end design and heavy-duty performance. Highly recommend.",
+      name: "Michael Ross",
+      title: "Operations Director, TaskForge",
+      rating: 5,
+      size: "large"
+    },
+    {
+      quote: "Our business profile for Shree Maruthi Industries needed a serious upgrade. They delivered a site that truly reflects our scale and professionalism. Fast turnaround and extremely responsive communication.",
+      name: "Rahul Sharma",
+      title: "CEO, Shree Maruthi Industries",
       rating: 5,
       size: "small"
+    },
+    {
+      quote: "The branding refresh and product site for Voxera were exceptional. They managed to capture the essence of our voice technology perfectly. The live demo portal they built has been our best conversion tool yet.",
+      name: "James Lowery",
+      title: "Founder, Voxera",
+      rating: 5,
+      size: "medium"
+    },
+    {
+      quote: "Professional, creative, and detail-oriented. They took our health-tech vision and turned it into a sleek, user-friendly reality. The minimalist aesthetic they bring to the table is exactly what modern software needs today.",
+      name: "Amina Khan",
+      title: "Founder, Nexa Health",
+      rating: 5,
+      size: "large"
+    },
+    {
+      quote: "Clean code and stunning design. It's hard to find an agency that hits the mark on both, but these guys definitely do. Our logistics dashboard has never looked better.",
+      name: "David Park",
+      title: "CEO, Swift Logistics",
+      rating: 5,
+      size: "small"
+    },
+    {
+      quote: "I've worked with many design agencies, but the way this team handles project flow is superior. They clarified our brand identity while building a functional product site. A seamless collaboration from day one.",
+      name: "Elena Martinez",
+      title: "Design Lead, Pixel Flow",
+      rating: 5,
+      size: "medium"
     }
   ];
 

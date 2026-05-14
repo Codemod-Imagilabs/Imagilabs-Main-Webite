@@ -28,12 +28,12 @@ const LogoCarousel = () => {
           {logoData.map((logo) => (
             <div 
               key={`logo1-${logo.id}`} 
-              className="flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer scale-110 flex-shrink-0"
+              className="flex items-center justify-center grayscale-0 opacity-90 hover:opacity-100 transition-all duration-500 cursor-pointer scale-110 flex-shrink-0"
             >
               <img 
                 src={logo.img} 
                 alt={logo.name} 
-                className="h-10 md:h-12 w-auto object-contain filter brightness-125 contrast-125" 
+                className="h-10 md:h-12 w-auto object-contain filter brightness-150 contrast-125" 
               />
             </div>
           ))}
@@ -41,12 +41,12 @@ const LogoCarousel = () => {
           {logoData.map((logo) => (
             <div 
               key={`logo2-${logo.id}`} 
-              className="flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer scale-110 flex-shrink-0"
+              className="flex items-center justify-center grayscale-0 opacity-90 hover:opacity-100 transition-all duration-500 cursor-pointer scale-110 flex-shrink-0"
             >
               <img 
                 src={logo.img} 
                 alt={logo.name} 
-                className="h-10 md:h-12 w-auto object-contain filter brightness-125 contrast-125" 
+                className="h-10 md:h-12 w-auto object-contain filter brightness-150 contrast-125" 
               />
             </div>
           ))}
@@ -54,12 +54,12 @@ const LogoCarousel = () => {
           {logoData.map((logo) => (
             <div 
               key={`logo3-${logo.id}`} 
-              className="flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer scale-110 flex-shrink-0"
+              className="flex items-center justify-center grayscale-0 opacity-90 hover:opacity-100 transition-all duration-500 cursor-pointer scale-110 flex-shrink-0"
             >
               <img 
                 src={logo.img} 
                 alt={logo.name} 
-                className="h-10 md:h-12 w-auto object-contain filter brightness-125 contrast-125" 
+                className="h-10 md:h-12 w-auto object-contain filter brightness-150 contrast-125" 
               />
             </div>
           ))}

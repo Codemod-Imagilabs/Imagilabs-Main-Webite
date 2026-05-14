@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // Import Icons
-import photoshopIcon from '../assets/icons/photoshop.png';
+import reactIcon from '../assets/icons/react.png';
 import illustratorIcon from '../assets/icons/adobe-illustrator.png';
 import figmaIcon from '../assets/icons/figma.png';
 import dockerIcon from '../assets/icons/Docker.png';
@@ -54,7 +54,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 z-10 pointer-events-none">
         <div className="absolute top-[18%] left-[15%] opacity-90 animate-[float_6s_ease-in-out_infinite]">
           <div className="w-16 h-16 rounded-full bg-white/70 dark:bg-white/[0.08] backdrop-blur-2xl saturate-[1.6] flex justify-center items-center border border-white/90 dark:border-white/[0.12] shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.8)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-            <img src={photoshopIcon} alt="Photoshop" className="w-8 h-8 object-contain" />
+            <img src={reactIcon} alt="React" className="w-8 h-8 object-contain" />
           </div>
         </div>
         <div className="absolute top-[28%] right-[18%] opacity-90 animate-[float_7s_ease-in-out_infinite_1s]">

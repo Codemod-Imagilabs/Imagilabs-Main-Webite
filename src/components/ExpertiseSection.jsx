@@ -1,55 +1,53 @@
 import React from 'react';
 
-// Import PNG Icons
-import iconRocket from '../assets/expertise/Rocket.png';
-import iconTarget from '../assets/expertise/Target.png';
-import iconLaptop from '../assets/expertise/Laptop.png';
-import iconSecure from '../assets/expertise/Secure.png';
-import iconSuitcase from '../assets/expertise/Suitcase.png';
-import iconSMS from '../assets/expertise/SMS.png';
-
 const ExpertiseSection = () => {
   const expertise = [
     {
-      icon: iconRocket,
       title: "AI Solutions",
       description: "Build smart AI systems, virtual assistants, and intelligent tools tailored to business needs.",
-      highlighted: false
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/><path d="M19 3v4"/><path d="M21 5h-4"/></svg>
+      )
     },
     {
-      icon: iconTarget,
       title: "AI Automation",
       description: "Streamline operations and automate repetitive tasks with efficient AI-driven workflows.",
-      highlighted: true
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      )
     },
     {
-      icon: iconLaptop,
       title: "Custom Software Development",
       description: "Develop scalable web, mobile, and enterprise applications using modern technologies.",
-      highlighted: false
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>
+      )
     },
     {
-      icon: iconSecure,
       title: "AI Consulting",
       description: "Identify business opportunities, optimize processes, and implement future-ready AI strategies.",
-      highlighted: false
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3z"/></svg>
+      )
     },
     {
-      icon: iconSuitcase,
       title: "UI/UX Design",
       description: "Create modern, intuitive, and user-focused digital experiences with clean and impactful design.",
-      highlighted: false
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16a4 4 0 0 0 4-4 4 4 0 0 0-8 0 4 4 0 0 0 4 4Z"/><path d="M12 8v4"/><path d="M12 12h.01"/></svg>
+      )
     },
     {
-      icon: iconSMS,
       title: "Branding & Marketing",
       description: "Enhance brand presence with AI-powered marketing strategies, content creation, and digital growth solutions.",
-      highlighted: false
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+      )
     }
   ];
 
   return (
-    <section className="w-full py-24 bg-transparent relative overflow-hidden transition-colors duration-300">
+    <section className="w-full pt-4 pb-24 bg-transparent relative overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-20">
@@ -64,31 +62,27 @@ const ExpertiseSection = () => {
           {expertise.map((item, index) => (
             <div 
               key={index}
-              className={`group relative p-10 rounded-3xl transition-all duration-500 cursor-pointer flex flex-col items-center text-center backdrop-blur-xl ${
-                item.highlighted 
-                ? 'bg-gradient-to-br from-[#7163E9] via-[#6052E5] to-[#4B3AD9] text-white shadow-[0_20px_60px_rgba(75,58,217,0.4)] scale-105 z-10 border-t border-white/20' 
-                : 'bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.05] dark:border-white/[0.08] hover:border-black/[0.15] dark:hover:border-white/[0.15] hover:-translate-y-2'
-              }`}
+              className="group relative p-10 rounded-3xl transition-all duration-500 cursor-pointer flex flex-col items-center text-center backdrop-blur-xl bg-black/[0.03] dark:bg-white/[0.03] border border-black/[0.05] dark:border-white/[0.08] hover:bg-gradient-to-br hover:from-[#7163E9] hover:via-[#6052E5] hover:to-[#4B3AD9] hover:text-white hover:shadow-[0_20px_60px_rgba(75,58,217,0.4)] hover:scale-105 hover:z-10 hover:border-t-white/20"
             >
-              {/* Icon - No background container */}
-              <div className="mb-10 flex justify-center items-center transition-transform duration-300 group-hover:scale-110">
-                <img 
-                   src={item.icon} 
-                   alt={item.title} 
-                   className={`w-8 h-8 object-contain ${item.highlighted ? 'filter brightness-0 invert' : 'opacity-80 dark:opacity-80 opacity-60'}`} 
-                 />
+              {/* Icon - SVG that changes from purple to white on hover */}
+              <div className="mb-10 flex justify-center items-center transition-transform duration-300 group-hover:scale-110 text-[#7163E9] group-hover:text-white">
+                <div className="w-12 h-12 flex items-center justify-center">
+                  {React.cloneElement(item.icon, { 
+                    width: "48", 
+                    height: "48", 
+                    className: "transition-colors duration-300" 
+                  })}
+                </div>
               </div>
 
               {/* Text Content */}
-              <h3 className="text-2xl font-normal mb-4 text-black dark:text-white">{item.title}</h3>
-              <p className={`text-lg leading-relaxed ${item.highlighted ? 'text-white/90' : 'text-black/50 dark:text-white/40 group-hover:text-black/70 dark:group-hover:text-white/60 transition-colors duration-300'}`}>
+              <h3 className="text-2xl font-normal mb-4 text-black dark:text-white group-hover:text-white transition-colors duration-300">{item.title}</h3>
+              <p className="text-lg leading-relaxed text-black/50 dark:text-white/40 group-hover:text-white/90 transition-colors duration-300">
                 {item.description}
               </p>
 
-              {/* Subtle hover glow for non-highlighted cards */}
-              {!item.highlighted && (
-                <div className="absolute inset-0 bg-brand-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none"></div>
-              )}
+              {/* Subtle hover glow layer */}
+              <div className="absolute inset-0 bg-brand-purple/5 opacity-0 group-hover:opacity-0 transition-opacity duration-500 rounded-3xl pointer-events-none"></div>
             </div>
           ))}
         </div>

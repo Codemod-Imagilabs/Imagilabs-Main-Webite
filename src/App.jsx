@@ -10,6 +10,8 @@ import FAQSection from './components/FAQSection';
 import TestimonialsSection from './components/TestimonialsSection';
 import CTASection from './components/CTASection';
 import PortfolioSection from './components/PortfolioSection';
+import PlaneAnimation from './components/PlaneAnimation';
+import MascotSection from './components/MascotSection';
 import Footer from './components/Footer';
 import { useState, useEffect } from 'react';
 
@@ -54,16 +56,27 @@ function App() {
             </div>
           </div>
           
-          <div id="about">
-            <AboutSection />
-          </div>
-          
-          {/* Ambient Glows */}
-          <div id="services" className="relative">
-            {/* Top Left Patch */}
-            <div className="absolute top-1/4 -left-32 w-[450px] h-[200px] bg-[#7163E9]/40 rounded-full blur-[100px] pointer-events-none -z-10 -rotate-12" />
-            <ExpertiseSection />
-            <PortfolioSection />
+          {/* About + Expertise share a wrapper so the plane can span both */}
+          <div className="relative">
+
+            <div id="about" className="relative z-10">
+              {/* Plane animation — left side, sits in the About section */}
+              <PlaneAnimation />
+              <AboutSection />
+            </div>
+
+            {/* 3D Mascot Character */}
+            <div className="relative z-10">
+              <MascotSection />
+            </div>
+
+            {/* Ambient Glows */}
+            <div id="services" className="relative z-10">
+              {/* Top Left Patch */}
+              <div className="absolute top-1/4 -left-32 w-[450px] h-[200px] bg-[#7163E9]/40 rounded-full blur-[100px] pointer-events-none -z-10 -rotate-12" />
+              <ExpertiseSection />
+              <PortfolioSection />
+            </div>
           </div>
 
           <div className="relative">
