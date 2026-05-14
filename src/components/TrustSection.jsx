@@ -4,38 +4,44 @@ const TrustSection = () => {
   const reasons = [
     {
       number: "01",
-      title: "Human-Centered Design",
-      description: "We prioritize clarity and user experience.",
+      title: "Dedicated Team Support",
+      description: "A dedicated team focused on understanding your business, solving challenges, and delivering the right solutions with full transparency and support.",
       highlighted: true
     },
     {
       number: "02",
-      title: "Scalable Tech",
-      description: "Build once, grow fast. Our code is made to scale.",
+      title: "Fast & Reliable Delivery",
+      description: "We deliver high-quality solutions quickly without compromising performance, scalability, or user experience.",
       highlighted: false
     },
     {
       number: "03",
-      title: "Fast Delivery",
-      description: "Agile workflows = fast, quality development.",
+      title: "AI-Driven Innovation",
+      description: "We use modern technology and intelligent automation to help businesses work smarter and grow faster.",
       highlighted: false
     },
     {
       number: "04",
-      title: "Long-Term Support",
-      description: "We stick with you beyond the launch.",
+      title: "Clear Communication & Transparency",
+      description: "We ensure clear communication, regular updates, and a collaborative process throughout every project.",
+      highlighted: false
+    },
+    {
+      number: "05",
+      title: "Long-Term Partnership",
+      description: "We focus on building long-term partnerships through trust, reliability, and continuous support.",
       highlighted: false
     }
   ];
 
   return (
     <section className="w-full py-32 bg-transparent border-y border-black/[0.05] dark:border-white/[0.05] relative overflow-hidden z-10 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col lg:flex-row items-center lg:items-start justify-between gap-20">
+      <div className="max-w-5xl mx-auto px-4 md:px-8 lg:pl-32 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-20">
         
         {/* Left Side: Title */}
-        <div className="lg:sticky lg:top-40 max-w-xl">
-          <h2 className="text-4xl md:text-5xl font-normal tracking-tight leading-[1.2] text-black/80 dark:text-white/80">
-            Why Tech Companies <br /><span className="text-black dark:text-white">Trust Us</span>
+        <div className="lg:sticky lg:top-40 max-w-xl self-center lg:-ml-16">
+          <h2 className="text-5xl md:text-6xl font-normal tracking-tight leading-[1.2] text-black/80 dark:text-white/80">
+            Why Businesses <br /><span className="text-black dark:text-white">Trust Us</span>
           </h2>
         </div>
 

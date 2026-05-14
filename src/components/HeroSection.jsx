@@ -82,7 +82,7 @@ const HeroSection = () => {
       {/* Main Content */}
       <div className="relative z-30 flex flex-col items-center text-center px-4 max-w-6xl mx-auto">
         <h1 className="text-4xl md:text-7xl font-normal tracking-tight mb-12 leading-tight">
-          <span className="block mb-4 md:mb-6">Empowering the Future</span>
+          <span className="block mb-4 md:mb-6">Empowering Businesses</span>
           <span className="flex flex-col md:flex-row items-center justify-center gap-y-4 md:gap-x-4">
             <span className="relative inline-block align-middle transition-all duration-500 ease-in-out">
               <span className="relative inline-flex overflow-hidden bg-white/60 dark:bg-white/[0.03] backdrop-blur-[40px] saturate-[2] px-10 py-3 md:py-4 rounded-full border border-white/80 dark:border-white/[0.12] shadow-[0_8px_40px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.9)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.5)] transition-all duration-500">
@@ -105,7 +105,7 @@ const HeroSection = () => {
                 </div>
               </span>
             </span>
-            <span className="opacity-90">with Technology</span>
+            <span className="opacity-90">with AI</span>
           </span>
         </h1>
         

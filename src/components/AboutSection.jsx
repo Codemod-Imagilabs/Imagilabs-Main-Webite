@@ -14,7 +14,7 @@ const AboutSection = () => {
         {/* Main Text Content */}
         <div className="max-w-5xl">
           <p className="text-2xl md:text-3xl lg:text-4xl text-black/50 dark:text-white/50 leading-relaxed font-normal">
-            We are a team of visionary designers and developers dedicated to crafting premium digital experiences. By blending high-fidelity aesthetics with cutting-edge technology, we help brands stand out in a crowded digital landscape.
+           We are a team of AI engineers, developers, and designers focused on building intelligent digital solutions that drive real business growth. By combining modern technology, strategic thinking, and automation, we help businesses solve complex problems faster and work more efficiently. <br/><br/>From AI consulting and workflow automation to custom software development, we deliver scalable solutions tailored to your business needs and future growth
           </p>
         </div>
       </div>

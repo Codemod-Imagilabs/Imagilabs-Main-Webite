@@ -49,7 +49,7 @@ function App() {
             />
             <div className="relative z-10">
               <HeroSection />
-              <LogoCarousel />
+              
             </div>
           </div>
           
@@ -74,12 +74,13 @@ function App() {
           <div className="relative">
             {/* Bottom Left Patch */}
             <div className="absolute top-1/3 -left-32 w-[450px] h-[200px] bg-[#7163E9]/40 rounded-full blur-[100px] pointer-events-none -z-10 -rotate-6" />
-            <FAQSection />
             <TestimonialsSection />
+            
           </div>
           
           <div id="contact">
             <CTASection />
+            <LogoCarousel />
           </div>
         </main>
         <Footer theme={theme} />

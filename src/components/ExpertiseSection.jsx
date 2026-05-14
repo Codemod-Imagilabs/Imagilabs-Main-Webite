@@ -12,38 +12,38 @@ const ExpertiseSection = () => {
   const expertise = [
     {
       icon: iconRocket,
-      title: "AI Development",
-      description: "Automate and optimize with machine learning & NLP.",
+      title: "AI Solutions",
+      description: "Build smart AI systems, virtual assistants, and intelligent tools tailored to business needs.",
       highlighted: false
     },
     {
       icon: iconTarget,
-      title: "Web App Development",
-      description: "Scalable, high-performance platforms for the modern user.",
+      title: "AI Automation",
+      description: "Streamline operations and automate repetitive tasks with efficient AI-driven workflows.",
       highlighted: true
     },
     {
       icon: iconLaptop,
-      title: "UI/UX Design",
-      description: "Minimalist and intuitive design for seamless experiences.",
+      title: "Custom Software Development",
+      description: "Develop scalable web, mobile, and enterprise applications using modern technologies.",
       highlighted: false
     },
     {
       icon: iconSecure,
-      title: "Cloud Integration",
-      description: "Secure, reliable cloud services and architecture.",
+      title: "AI Consulting",
+      description: "Identify business opportunities, optimize processes, and implement future-ready AI strategies.",
       highlighted: false
     },
     {
       icon: iconSuitcase,
-      title: "Product Strategy",
-      description: "From ideation to launch, we help define winning products.",
+      title: "UI/UX Design",
+      description: "Create modern, intuitive, and user-focused digital experiences with clean and impactful design.",
       highlighted: false
     },
     {
       icon: iconSMS,
-      title: "Creative Branding",
-      description: "Automate and optimize with machine learning & NLP.",
+      title: "AI Branding & Marketing",
+      description: "Enhance brand presence with AI-powered marketing strategies, content creation, and digital growth solutions.",
       highlighted: false
     }
   ];
