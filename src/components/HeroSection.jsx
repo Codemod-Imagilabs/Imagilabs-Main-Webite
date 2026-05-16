@@ -47,7 +47,7 @@ const HeroSection = () => {
 
   return (
     <section 
-      className="relative w-full h-auto md:h-screen min-h-[500px] md:min-h-[700px] flex flex-col justify-center items-center overflow-hidden text-black dark:text-white transition-colors duration-300 pt-60 pb-12 md:pt-44 md:pb-0"
+      className="relative w-full h-auto md:h-screen min-h-[500px] md:min-h-[700px] flex flex-col justify-center items-center overflow-hidden text-black dark:text-white transition-colors duration-300 pt-48 pb-12 md:pt-44 md:pb-0"
     >
       
       {/* Floating Liquid Glass Icons — constrained inside hero overflow-hidden */}

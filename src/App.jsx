@@ -46,8 +46,7 @@ function App() {
             <img 
               src={homeBg} 
               alt=""  
-              className="absolute top-[150px] left-0 w-screen pointer-events-none -z-10"
-              style={{ transform: 'scaleX(1.15)', transformOrigin: 'center top' }}
+              className="absolute top-[150px] left-0 w-screen pointer-events-none -z-10 scale-[1.15] md:scale-x-[1.15] md:scale-y-100 origin-top"
             />
             <div className="relative z-10">
               <HeroSection />
