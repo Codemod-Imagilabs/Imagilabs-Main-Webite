@@ -10,16 +10,17 @@ const Navbar = ({ theme, toggleTheme }) => {
         <img src={logo} alt="Imagilabs Logo" className={`h-12 w-auto object-contain transition-all duration-300 ${isLight ? 'invert' : ''}`} />
       </div>
 
-      {/* Navigation Links */}
-      <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
-        <div className="flex space-x-8 text-gray-500 dark:text-gray-300">
+      {/* Right side: Links (desktop) and Toggle (always) */}
+      <div className="flex items-center space-x-4 md:space-x-8">
+        {/* Navigation Links - Desktop Only */}
+        <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-500 dark:text-gray-300">
           <a href="#homepage" className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-brand-purple">Homepage</a>
           <a href="#about" className="hover:text-black dark:hover:text-white transition-colors cursor-pointer">About</a>
           <a href="#services" className="hover:text-black dark:hover:text-white transition-colors cursor-pointer">Services</a>
           <a href="#contact" className="hover:text-black dark:hover:text-white transition-colors cursor-pointer">Contact</a>
         </div>
 
-        {/* Theme Toggle — React class-driven sun/moon */}
+        {/* Theme Toggle — Always visible */}
         <div className={isLight ? 'theme-is-light' : ''}>
           <button
             onClick={toggleTheme}
