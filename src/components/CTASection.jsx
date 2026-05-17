@@ -37,9 +37,14 @@ const CTASection = () => {
             </p>
 
             <div className="pt-2 md:pt-4">
-              <button className="px-8 py-3.5 md:px-10 md:py-4 bg-white text-[#4B3AD9] font-medium rounded-full text-base md:text-lg hover:bg-white/90 hover:scale-105 transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.25)]">
+              <a 
+                href="https://wa.me/917892713993?text=Hi%20Imagilabs!%20I%20am%20interested%20in%20starting%20a%20project%20with%20you.%20Let's%20connect%20and%20discuss%20the%20details." 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-block px-8 py-3.5 md:px-10 md:py-4 bg-white text-[#4B3AD9] font-medium rounded-full text-base md:text-lg hover:bg-white/90 hover:scale-105 transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.25)]"
+              >
                 Start Your Project
-              </button>
+              </a>
             </div>
           </div>
         </div>

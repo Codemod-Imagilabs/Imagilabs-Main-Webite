@@ -20,6 +20,13 @@ const words = [
 const HeroSection = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
+  const [email, setEmail] = useState('');
+  
+  const handleEmailSubmit = (e) => {
+    e.preventDefault();
+    if (!email) return;
+    window.location.href = `mailto:hello@imagilabs.in?subject=Inquiry from Website&body=Hi Imagilabs Team,%0D%0A%0D%0AI would like to connect and discuss a project with you. Please reach out to me at: ${email}%0D%0A%0D%0ABest regards`;
+  };
   
   // Rolling Effect
   useEffect(() => {
@@ -115,12 +122,14 @@ const HeroSection = () => {
 
         {/* Email Input Form — Lavender in light mode */}
         <form 
-          onSubmit={(e) => e.preventDefault()} 
+          onSubmit={handleEmailSubmit} 
           className="flex items-center bg-[#ABA6FF] dark:bg-white/[0.07] border border-[#9B95FF] dark:border-white/10 rounded-full p-1 pl-4 md:pl-6 shadow-[0_8px_40px_rgba(113,99,233,0.25)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-300 dark:hover:border-white/20"
         >
           <input 
             type="email" 
             placeholder="shahin.ki.jai@gmail.com" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="bg-transparent border-none outline-none text-black dark:text-white placeholder-gray-600 dark:placeholder-gray-500 w-48 md:w-80 font-light text-sm md:text-base"
             required
           />

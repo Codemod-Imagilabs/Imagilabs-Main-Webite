@@ -50,8 +50,6 @@ function App() {
             />
             <div className="relative z-10">
               <HeroSection />
-              <LogoCarousel />
-              
             </div>
           </div>
           

@@ -34,9 +34,7 @@ const PortfolioSection = () => {
         {/* Header Area */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4 md:gap-6 text-left">
           <h2 className="text-3xl md:text-6xl font-normal tracking-tight text-black dark:text-white">Portfolio</h2>
-          <p className="text-black/40 dark:text-white/40 text-base md:text-xl max-w-xs md:text-right leading-relaxed">
-            Minimalist and intuitive design for seamless experiences.
-          </p>
+          
         </div>
 
         {/* Divider Line */}
