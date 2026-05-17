@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import reviewBg from '../assets/review-bg/peakpx.jpg';
 
 class TextScramble {
   constructor(el) {
@@ -36,7 +37,7 @@ class TextScramble {
           char = this.randomChar();
           this.queue[i].char = char;
         }
-        output += `<span class="opacity-35 text-[#7163E9]/60 dark:text-[#8B7EFF]/60 font-light">${char}</span>`;
+        output += `<span class="opacity-65 text-white/80 font-light">${char}</span>`;
       } else {
         output += from;
       }
@@ -104,6 +105,15 @@ const TestimonialsSection = () => {
   return (
     <section className="w-full py-24 md:py-48 bg-transparent border-y border-black/[0.05] dark:border-white/[0.05] relative overflow-hidden z-10 transition-colors duration-300">
       
+      {/* Background Image - Full brightness, 100% width cropping height */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <img 
+          src={reviewBg} 
+          alt="Section Background" 
+          className="w-full h-full object-cover opacity-100"
+        />
+      </div>
+
       {/* Ambient Pulsing Glow Backgrounds */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] md:w-[600px] h-[350px] md:h-[600px] bg-gradient-to-tr from-[#7163E9]/15 to-[#4B3AD9]/15 rounded-full blur-[80px] md:blur-[120px] animate-[pulse_8s_ease-in-out_infinite]" />
@@ -115,7 +125,7 @@ const TestimonialsSection = () => {
         <div className="relative w-full h-[120px] md:h-[200px] flex items-center justify-center select-none">
           <span 
             ref={textRef}
-            className="w-full text-center text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-[#7163E9] dark:text-[#8B7EFF] select-none leading-none uppercase"
+            className="w-full text-center text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white select-none leading-none uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
             style={{ fontFamily: "'Roboto Mono', monospace" }}
           />
         </div>
