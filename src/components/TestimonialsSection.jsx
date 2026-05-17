@@ -40,7 +40,7 @@ class TextScramble {
           char = this.randomChar();
           this.queue[i].char = char;
         }
-        output += `<span class="dud">${char}</span>`;
+        output += `<span class="opacity-65 text-white/60 font-light">${char}</span>`;
       } else {
         output += from;
       }
@@ -126,7 +126,7 @@ const renderShaderSource = `
     float left  = texture2D(u_heightmap, heightmapUv - vec2(texel.x, 0.0)).r - 0.5;
     float right = texture2D(u_heightmap, heightmapUv + vec2(texel.x, 0.0)).r - 0.5;
     float up    = texture2D(u_heightmap, heightmapUv - vec2(0.0, texel.y)).r - 0.5;
-    float down  = texture2D(u_heightmap, heightmapUv + vec2(0.0, texel.y)).r - 0.5;
+    float down  = texture2D(u_heightmap, heightmapUv - vec2(0.0, texel.y)).r - 0.5;
     
     vec2 distortion = vec2(right - left, down - up);
     
@@ -323,7 +323,7 @@ const TestimonialsSection = () => {
     let framebufferA = createFramebuffer(textureA);
     let framebufferB = createFramebuffer(textureB);
 
-    // Dynamic Image + Text source canvas
+    // Dynamic Image source canvas (used ONLY for the background image)
     const sourceCanvas = document.createElement('canvas');
     const sourceCtx = sourceCanvas.getContext('2d');
     const imageTexture = gl.createTexture();
@@ -371,7 +371,7 @@ const TestimonialsSection = () => {
       mouseStrength += (targetMouseStrength - mouseStrength) * 0.12;
 
       // ────────────────────────────────────────────────────────
-      // Step 1: Draw static background & scrambled text to Canvas 2D
+      // Step 1: Draw ONLY background image to Canvas 2D
       // ────────────────────────────────────────────────────────
       sourceCtx.clearRect(0, 0, canvasWidth, canvasHeight);
       
@@ -383,65 +383,7 @@ const TestimonialsSection = () => {
         sourceCtx.fillRect(0, 0, canvasWidth, canvasHeight);
       }
 
-      // Draw active Scramble Text from DOM
-      if (textRef.current) {
-        // Calculate responsive font size exactly like Tailwind
-        let fontSize = 32;
-        if (canvasWidth >= 1024) fontSize = 112;      // lg:text-9xl
-        else if (canvasWidth >= 768) fontSize = 82;   // md:text-8xl
-        else if (canvasWidth >= 640) fontSize = 58;   // sm:text-6xl
-        else if (canvasWidth >= 480) fontSize = 42;   // mobile medium
-
-        sourceCtx.textBaseline = 'middle';
-        sourceCtx.textAlign = 'left';
-
-        // Pre-calculate text layout width to achieve true center alignment
-        let totalWidth = 0;
-        for (let node of textRef.current.childNodes) {
-          if (node.nodeType === Node.TEXT_NODE) {
-            sourceCtx.font = `bold ${fontSize}px "Roboto Mono", monospace`;
-          } else if (node.nodeType === Node.ELEMENT_NODE) {
-            sourceCtx.font = `300 ${fontSize}px "Roboto Mono", monospace`;
-          }
-          totalWidth += sourceCtx.measureText(node.textContent).width;
-        }
-
-        // Draw node elements
-        let xOffset = (canvasWidth - totalWidth) / 2;
-        const centerY = canvasHeight / 2;
-
-        for (let node of textRef.current.childNodes) {
-          if (node.nodeType === Node.TEXT_NODE) {
-            sourceCtx.fillStyle = '#FFFFFF';
-            sourceCtx.font = `bold ${fontSize}px "Roboto Mono", monospace`;
-            
-            // Text Drop Shadow
-            sourceCtx.shadowColor = 'rgba(0, 0, 0, 0.4)';
-            sourceCtx.shadowBlur = 12;
-            sourceCtx.shadowOffsetY = 4;
-            
-            sourceCtx.fillText(node.textContent, xOffset, centerY);
-            xOffset += sourceCtx.measureText(node.textContent).width;
-          } else if (node.nodeType === Node.ELEMENT_NODE) {
-            // Faded/Glitch character style
-            sourceCtx.fillStyle = 'rgba(255, 255, 255, 0.55)';
-            sourceCtx.font = `300 ${fontSize}px "Roboto Mono", monospace`;
-            
-            sourceCtx.shadowColor = 'rgba(0, 0, 0, 0.3)';
-            sourceCtx.shadowBlur = 8;
-            sourceCtx.shadowOffsetY = 3;
-            
-            sourceCtx.fillText(node.textContent, xOffset, centerY);
-            xOffset += sourceCtx.measureText(node.textContent).width;
-          }
-        }
-        // Reset shadows
-        sourceCtx.shadowColor = 'transparent';
-        sourceCtx.shadowBlur = 0;
-        sourceCtx.shadowOffsetY = 0;
-      }
-
-      // Upload the drawn 2D canvas to u_image WebGL Texture (UNPACK_FLIP_Y_WEBGL is removed to allow shader-level robust flip)
+      // Upload the background canvas to u_image WebGL Texture
       gl.bindTexture(gl.TEXTURE_2D, imageTexture);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, sourceCanvas);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -478,7 +420,7 @@ const TestimonialsSection = () => {
       framebufferB = tempFB;
 
       // ────────────────────────────────────────────────────────
-      // Step 3: Draw distorted visual result to main WebGL screen
+      // Step 3: Draw distorted background to main WebGL screen
       // ────────────────────────────────────────────────────────
       gl.bindFramebuffer(gl.FRAMEBUFFER, null);
       gl.viewport(0, 0, canvasWidth, canvasHeight);
@@ -521,32 +463,32 @@ const TestimonialsSection = () => {
       className="w-full py-24 md:py-48 bg-black relative overflow-hidden z-10 transition-colors duration-300 select-none cursor-pointer"
       style={{ borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}
     >
-      {/* ── WebGL Interactive Fluid Wave Overlay ── */}
+      {/* ── WebGL Interactive Fluid Wave Overlay (renders ONLY the background) ── */}
       <canvas 
         ref={canvasRef} 
         className="absolute inset-0 w-full h-full z-10 pointer-events-none"
       />
-
-      {/* Hidden DOM layout for SEO indexing, accessibility, and TextScramble engines */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-0 select-none">
-        <span 
-          ref={textRef}
-          className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white font-mono uppercase"
-        />
-      </div>
 
       {/* Subtle pulsing background glow underneath the WebGL canvas */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] md:w-[600px] h-[350px] md:h-[600px] bg-gradient-to-tr from-[#7163E9]/12 to-[#4B3AD9]/12 rounded-full blur-[80px] md:blur-[120px] animate-[pulse_8s_ease-in-out_infinite]" />
       </div>
 
+      {/* Active DOM Text on top of WebGL canvas (z-20) - completely sharp, clean, non-distorted */}
       <div className="max-w-6xl mx-auto px-4 md:px-8 relative z-20 text-center flex flex-col items-center justify-center min-h-[160px] md:min-h-[260px] pointer-events-none">
-        {/* Mirror container to reserve vertical structure */}
-        <div className="relative w-full h-[120px] md:h-[200px] flex items-center justify-center select-none opacity-0">
-          <span className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold font-mono">
-            WE SKIPPED THE FAKE REVIEW PART
-          </span>
+        
+        {/* Scramble Text Container */}
+        <div className="relative w-full h-[120px] md:h-[200px] flex items-center justify-center select-none">
+          <span 
+            ref={textRef}
+            className="w-full text-center text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white select-none leading-none uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] font-mono"
+            style={{ fontFamily: "'Roboto Mono', monospace" }}
+          />
         </div>
+
+        {/* Subtle light reflect line underneath */}
+        <div className="h-px w-full max-w-sm mx-auto bg-gradient-to-r from-transparent via-[#7163E9]/40 to-transparent mt-8 md:mt-12" />
+        
       </div>
     </section>
   );
