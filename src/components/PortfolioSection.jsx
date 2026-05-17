@@ -22,7 +22,7 @@ const PortfolioSection = () => {
     },
     {
       title: "Voice Technology Startup",
-      category: "Ai Product Portal",
+      category: "AI Product Portal",
       description: "Voxera builds voice assistants for enterprise use. Branding refresh and demo portal.",
       gif: "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJmNXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKFv9S6E9D6v6eI/giphy.gif"
     }

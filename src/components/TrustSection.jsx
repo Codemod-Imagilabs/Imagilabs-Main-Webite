@@ -224,7 +224,7 @@ const TrustSection = () => {
   const reasons = [
     { number: '01', title: 'Dedicated Team Support',             description: 'A dedicated team focused on understanding your business, solving challenges, and delivering the right solutions with full transparency and support.', highlighted: false  },
     { number: '02', title: 'Fast & Reliable Delivery',           description: 'We deliver high-quality solutions quickly without compromising performance, scalability, or user experience.',                                          highlighted: false },
-    { number: '03', title: 'Ai-Driven Innovation',               description: 'We use modern technology and intelligent automation to help businesses work smarter and grow faster.',                                                    highlighted: false },
+    { number: '03', title: 'AI-Driven Innovation',               description: 'We use modern technology and intelligent automation to help businesses work smarter and grow faster.',                                                    highlighted: false },
     { number: '04', title: 'Clear Communication & Transparency', description: 'We ensure clear communication, regular updates, and a collaborative process throughout every project.',                                              highlighted: false },
     { number: '05', title: 'Long-Term Partnership',              description: 'We focus on building long-term partnerships through trust, reliability, and continuous support.',                                                        highlighted: false },
   ];

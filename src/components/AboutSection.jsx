@@ -14,7 +14,7 @@ const AboutSection = () => {
         {/* Main Text Content */}
         <div className="max-w-5xl">
           <p className="text-lg md:text-3xl lg:text-4xl text-black/50 dark:text-white/50 leading-relaxed font-normal">
-           We are a team of Ai engineers, developers, and designers focused on building intelligent digital solutions that drive real business growth. By combining modern technology, strategic thinking, and automation, we help businesses solve complex problems faster and work more efficiently. <br/><br/>From Ai consulting and workflow automation to custom software development, we deliver scalable solutions tailored to your business needs and future growth
+           We are a team of AI engineers, developers, and designers focused on building intelligent digital solutions that drive real business growth. By combining modern technology, strategic thinking, and automation, we help businesses solve complex problems faster and work more efficiently. <br/><br/>From AI consulting and workflow automation to custom software development, we deliver scalable solutions tailored to your business needs and future growth
           </p>
         </div>
       </div>

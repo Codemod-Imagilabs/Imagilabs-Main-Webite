@@ -7,7 +7,7 @@ const FAQSection = () => {
   const faqs = [
     {
       question: "What industries do you specialize in?",
-      answer: "We specialize in working with startups and businesses in Ai, SaaS, fintech, healthtech, and smart agriculture. Our experience spans across multiple tech-driven sectors."
+      answer: "We specialize in working with startups and businesses in AI, SaaS, fintech, healthtech, and smart agriculture. Our experience spans across multiple tech-driven sectors."
     },
     {
       question: "Can you help with both design and development?",
