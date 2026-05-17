@@ -5,8 +5,9 @@ import reviewBg from '../assets/review-bg/peakpx.jpg';
 // TextScramble Engine
 // ——————————————————————————————————————————————————
 class TextScramble {
-  constructor(el) {
+  constructor(el, scrambleSegmentsRef) {
     this.el = el;
+    this.scrambleSegmentsRef = scrambleSegmentsRef;
     this.chars = '!<>-_\\/[]{}—=+*^?#________';
     this.update = this.update.bind(this);
   }
@@ -30,22 +31,31 @@ class TextScramble {
   update() {
     let output = '';
     let complete = 0;
+    const segments = [];
+
     for (let i = 0, n = this.queue.length; i < n; i++) {
       let { from, to, start, end, char } = this.queue[i];
       if (this.frame >= end) {
         complete++;
         output += to;
+        segments.push({ text: to, isDud: false });
       } else if (this.frame >= start) {
         if (!char || Math.random() < 0.28) {
           char = this.randomChar();
           this.queue[i].char = char;
         }
         output += `<span class="opacity-65 text-white/60 font-light">${char}</span>`;
+        segments.push({ text: char, isDud: true });
       } else {
         output += from;
+        segments.push({ text: from, isDud: false });
       }
     }
+    
+    // Save to shared in-memory Ref for immediate, synchronous WebGL canvas drawing
+    this.scrambleSegmentsRef.current = segments;
     this.el.innerHTML = output;
+    
     if (complete === this.queue.length) {
       this.resolve();
     } else {
@@ -68,13 +78,26 @@ const vertexShaderSource = `
   }
 `;
 
-// Wave propagation logic (physics loop running on 256x256 texture grid)
+// Wave propagation logic (physics loop running on 512x512 texture grid)
 const waveShaderSource = `
   precision mediump float;
   uniform sampler2D u_current;
   uniform vec2 u_resolution;
   uniform vec2 u_mouse;
+  uniform vec2 u_prevMouse;
   uniform float u_mouseStrength;
+  uniform float u_time;
+
+  // Shortest distance from point P to line segment AB
+  float distToSegment(vec2 p, vec2 a, vec2 b) {
+    vec2 ab = b - a;
+    vec2 ap = p - a;
+    float l2 = dot(ab, ab);
+    if (l2 == 0.0) return distance(p, a);
+    float t = clamp(dot(ap, ab) / l2, 0.0, 1.0);
+    vec2 projection = a + t * ab;
+    return distance(p, projection);
+  }
 
   void main() {
     vec2 uv = gl_FragCoord.xy / u_resolution;
@@ -92,13 +115,26 @@ const waveShaderSource = `
     
     // Wave physics loop
     float newHeight = (left + right + up + down) * 0.5 - previousHeight;
-    newHeight *= 0.97; // Wave damping (decay rate)
+    newHeight *= 0.985; // Silky smooth fluid decay
     
-    // Inject stronger mouse cursor wave pressure
+    // Inject gentle, multi-layered background ripples (interference waves)
+    float wave1 = sin(uv.x * 7.0 + u_time * 1.6) * cos(uv.y * 8.0 - u_time * 1.3) * 0.0007;
+    float wave2 = sin(uv.x * 13.0 - u_time * 2.4) * cos(uv.y * 12.0 + u_time * 1.9) * 0.0004;
+    float wave3 = sin(uv.x * 4.0 + u_time * 0.7) * cos(uv.y * 3.5 - u_time * 0.6) * 0.0012;
+    newHeight += (wave1 + wave2 + wave3) * 0.15;
+    
+    // Inject smooth, multi-layered traveling wave train along the drag path
     if (u_mouseStrength > 0.0) {
-      float dist = distance(gl_FragCoord.xy, u_mouse);
-      if (dist < 12.0) {
-        newHeight += u_mouseStrength * (1.0 - dist / 12.0) * 0.42;
+      float dist = distToSegment(gl_FragCoord.xy, u_prevMouse, u_mouse);
+      if (dist < 28.0) {
+        // Spatial-temporal traveling wave train (wavelength ~14px, propagates at speed 30.0)
+        // This directly injects multiple parallel wave ridges (concentric layered ripples)
+        float waveTrain = sin(dist * 0.45 - u_time * 30.0);
+        
+        // Soft edge envelope falloff
+        float envelope = 1.0 - dist / 28.0;
+        
+        newHeight += u_mouseStrength * envelope * waveTrain * 0.45;
       }
     }
     
@@ -181,6 +217,11 @@ const TestimonialsSection = () => {
   const canvasRef = useRef(null);
   const bgImageRef = useRef(null);
 
+  // Synchronous, shared Ref to handle 100% atomic canvas text drawing
+  const scrambleSegmentsRef = useRef([
+    { text: "We skipped the fake review part.", isDud: false }
+  ]);
+
   const phrases = [
     "We skipped",
     "the fake",
@@ -209,7 +250,7 @@ const TestimonialsSection = () => {
     const el = textRef.current;
     if (!el) return;
 
-    const fx = new TextScramble(el);
+    const fx = new TextScramble(el, scrambleSegmentsRef);
     let counter = 0;
     let timeoutId;
     let isMounted = true;
@@ -288,9 +329,9 @@ const TestimonialsSection = () => {
     const positionAttributeWave = gl.getAttribLocation(waveProgram, 'position');
     const positionAttributeRender = gl.getAttribLocation(renderProgram, 'position');
 
-    // Heightmap textures swap system (physics runs on lightweight grid for absolute peak 60fps performance)
-    const heightmapWidth = 256;
-    const heightmapHeight = 256;
+    // Heightmap textures system (high-definition 512x512 grid)
+    const heightmapWidth = 512;
+    const heightmapHeight = 512;
     const initialData = new Uint8Array(heightmapWidth * heightmapHeight * 4);
     for (let i = 0; i < initialData.length; i += 4) {
       initialData[i]     = 128; // height = 0.5
@@ -323,28 +364,53 @@ const TestimonialsSection = () => {
     let framebufferA = createFramebuffer(textureA);
     let framebufferB = createFramebuffer(textureB);
 
-    // Dynamic Image source canvas (used ONLY for the background image)
+    // Dynamic Image source canvas (used for BOTH background image and text to distort together)
     const sourceCanvas = document.createElement('canvas');
     const sourceCtx = sourceCanvas.getContext('2d');
     const imageTexture = gl.createTexture();
 
-    // Mouse Interaction States
+    // Mouse Interaction States (tracking current and previous frame coordinates)
     let mouseX = 0;
     let mouseY = 0;
+    let prevMouseX = 0;
+    let prevMouseY = 0;
+    let lastClientX = null;
+    let lastClientY = null;
     let mouseStrength = 0;
     let targetMouseStrength = 0;
 
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect();
-      const dx = (e.clientX - rect.left) / rect.width;
-      const dy = (e.clientY - rect.top) / rect.height;
-      mouseX = dx * heightmapWidth;
-      mouseY = (1.0 - dy) * heightmapHeight;
-      targetMouseStrength = 1.25; // Stronger starting trigger pressure
+      const currentX = ((e.clientX - rect.left) / rect.width) * heightmapWidth;
+      const currentY = (1.0 - (e.clientY - rect.top) / rect.height) * heightmapHeight;
+      
+      // Calculate cursor drag velocity
+      if (lastClientX !== null && lastClientY !== null) {
+        const dx = e.clientX - lastClientX;
+        const dy = e.clientY - lastClientY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        targetMouseStrength = Math.min(distance * 0.25, 1.95);
+        
+        // Track coordinate segment
+        prevMouseX = mouseX;
+        prevMouseY = mouseY;
+      } else {
+        prevMouseX = currentX;
+        prevMouseY = currentY;
+      }
+      
+      mouseX = currentX;
+      mouseY = currentY;
+      
+      lastClientX = e.clientX;
+      lastClientY = e.clientY;
     };
 
     const handleMouseLeave = () => {
       targetMouseStrength = 0.0;
+      lastClientX = null;
+      lastClientY = null;
     };
 
     container.addEventListener('mousemove', handleMouseMove);
@@ -367,11 +433,12 @@ const TestimonialsSection = () => {
         sourceCanvas.height = canvasHeight;
       }
 
-      // Smooth decay mouse interaction
-      mouseStrength += (targetMouseStrength - mouseStrength) * 0.12;
+      // Quick decay mouse pressure: immediately damp when cursor is still
+      mouseStrength += (targetMouseStrength - mouseStrength) * 0.28;
+      targetMouseStrength *= 0.82; 
 
       // ────────────────────────────────────────────────────────
-      // Step 1: Draw ONLY background image to Canvas 2D
+      // Step 1: Draw cover image & dynamic scramble text to Canvas 2D
       // ────────────────────────────────────────────────────────
       sourceCtx.clearRect(0, 0, canvasWidth, canvasHeight);
       
@@ -381,6 +448,65 @@ const TestimonialsSection = () => {
       } else {
         sourceCtx.fillStyle = '#0a0a0a';
         sourceCtx.fillRect(0, 0, canvasWidth, canvasHeight);
+      }
+
+      // Draw active Scramble Text from synchronous Ref to guarantee it is ALWAYS visible!
+      const segments = scrambleSegmentsRef.current;
+      if (segments && segments.length > 0) {
+        // Calculate responsive font size exactly like Tailwind
+        let fontSize = 32;
+        if (canvasWidth >= 1024) fontSize = 112;      // lg:text-9xl
+        else if (canvasWidth >= 768) fontSize = 82;   // md:text-8xl
+        else if (canvasWidth >= 640) fontSize = 58;   // sm:text-6xl
+        else if (canvasWidth >= 480) fontSize = 42;   // mobile medium
+
+        sourceCtx.textBaseline = 'middle';
+        sourceCtx.textAlign = 'left';
+
+        // Pre-calculate text layout width to achieve true center alignment
+        let totalWidth = 0;
+        for (let seg of segments) {
+          if (!seg.isDud) {
+            sourceCtx.font = `bold ${fontSize}px "Roboto Mono", monospace`;
+          } else {
+            sourceCtx.font = `300 ${fontSize}px "Roboto Mono", monospace`;
+          }
+          totalWidth += sourceCtx.measureText(seg.text).width;
+        }
+
+        // Draw segments to off-screen context
+        let xOffset = (canvasWidth - totalWidth) / 2;
+        const centerY = canvasHeight / 2;
+
+        for (let seg of segments) {
+          if (!seg.isDud) {
+            sourceCtx.fillStyle = '#FFFFFF';
+            sourceCtx.font = `bold ${fontSize}px "Roboto Mono", monospace`;
+            
+            // Text Drop Shadow
+            sourceCtx.shadowColor = 'rgba(0, 0, 0, 0.4)';
+            sourceCtx.shadowBlur = 12;
+            sourceCtx.shadowOffsetY = 4;
+            
+            sourceCtx.fillText(seg.text, xOffset, centerY);
+            xOffset += sourceCtx.measureText(seg.text).width;
+          } else {
+            // Faded/Glitch character style
+            sourceCtx.fillStyle = 'rgba(255, 255, 255, 0.55)';
+            sourceCtx.font = `300 ${fontSize}px "Roboto Mono", monospace`;
+            
+            sourceCtx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            sourceCtx.shadowBlur = 8;
+            sourceCtx.shadowOffsetY = 3;
+            
+            sourceCtx.fillText(seg.text, xOffset, centerY);
+            xOffset += sourceCtx.measureText(seg.text).width;
+          }
+        }
+        // Reset shadows
+        sourceCtx.shadowColor = 'transparent';
+        sourceCtx.shadowBlur = 0;
+        sourceCtx.shadowOffsetY = 0;
       }
 
       // Upload the background canvas to u_image WebGL Texture
@@ -402,7 +528,9 @@ const TestimonialsSection = () => {
 
       gl.uniform2f(gl.getUniformLocation(waveProgram, 'u_resolution'), heightmapWidth, heightmapHeight);
       gl.uniform2f(gl.getUniformLocation(waveProgram, 'u_mouse'), mouseX, mouseY);
+      gl.uniform2f(gl.getUniformLocation(waveProgram, 'u_prevMouse'), prevMouseX, prevMouseY);
       gl.uniform1f(gl.getUniformLocation(waveProgram, 'u_mouseStrength'), mouseStrength);
+      gl.uniform1f(gl.getUniformLocation(waveProgram, 'u_time'), performance.now() / 1000);
 
       gl.enableVertexAttribArray(positionAttributeWave);
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -420,7 +548,7 @@ const TestimonialsSection = () => {
       framebufferB = tempFB;
 
       // ────────────────────────────────────────────────────────
-      // Step 3: Draw distorted background to main WebGL screen
+      // Step 3: Draw distorted background + text to main WebGL screen
       // ────────────────────────────────────────────────────────
       gl.bindFramebuffer(gl.FRAMEBUFFER, null);
       gl.viewport(0, 0, canvasWidth, canvasHeight);
@@ -463,32 +591,32 @@ const TestimonialsSection = () => {
       className="w-full py-24 md:py-48 bg-black relative overflow-hidden z-10 transition-colors duration-300 select-none cursor-pointer"
       style={{ borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}
     >
-      {/* ── WebGL Interactive Fluid Wave Overlay (renders ONLY the background) ── */}
+      {/* ── WebGL Interactive Fluid Wave Overlay (renders BOTH background & text distorted together) ── */}
       <canvas 
         ref={canvasRef} 
         className="absolute inset-0 w-full h-full z-10 pointer-events-none"
       />
+
+      {/* Hidden DOM layout for SEO indexing, accessibility, and TextScramble engines */}
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-0 select-none">
+        <span 
+          ref={textRef}
+          className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white font-mono uppercase"
+        />
+      </div>
 
       {/* Subtle pulsing background glow underneath the WebGL canvas */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] md:w-[600px] h-[350px] md:h-[600px] bg-gradient-to-tr from-[#7163E9]/12 to-[#4B3AD9]/12 rounded-full blur-[80px] md:blur-[120px] animate-[pulse_8s_ease-in-out_infinite]" />
       </div>
 
-      {/* Active DOM Text on top of WebGL canvas (z-20) - completely sharp, clean, non-distorted */}
       <div className="max-w-6xl mx-auto px-4 md:px-8 relative z-20 text-center flex flex-col items-center justify-center min-h-[160px] md:min-h-[260px] pointer-events-none">
-        
-        {/* Scramble Text Container */}
-        <div className="relative w-full h-[120px] md:h-[200px] flex items-center justify-center select-none">
-          <span 
-            ref={textRef}
-            className="w-full text-center text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white select-none leading-none uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] font-mono"
-            style={{ fontFamily: "'Roboto Mono', monospace" }}
-          />
+        {/* Mirror container to reserve vertical structure */}
+        <div className="relative w-full h-[120px] md:h-[200px] flex items-center justify-center select-none opacity-0">
+          <span className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold font-mono">
+            WE SKIPPED THE FAKE REVIEW PART
+          </span>
         </div>
-
-        {/* Subtle light reflect line underneath */}
-        <div className="h-px w-full max-w-sm mx-auto bg-gradient-to-r from-transparent via-[#7163E9]/40 to-transparent mt-8 md:mt-12" />
-        
       </div>
     </section>
   );
