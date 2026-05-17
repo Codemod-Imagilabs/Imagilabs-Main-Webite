@@ -123,18 +123,18 @@ const waveShaderSource = `
     float wave3 = sin(uv.x * 4.0 + u_time * 0.7) * cos(uv.y * 3.5 - u_time * 0.6) * 0.0012;
     newHeight += (wave1 + wave2 + wave3) * 0.15;
     
-    // Inject smooth, multi-layered traveling wave train along the drag path
+    // Inject exactly one single, C1-continuous, ultra-smooth wave crest along the drag path
     if (u_mouseStrength > 0.0) {
       float dist = distToSegment(gl_FragCoord.xy, u_prevMouse, u_mouse);
       if (dist < 28.0) {
-        // Spatial-temporal traveling wave train (wavelength ~14px, propagates at speed 30.0)
-        // This directly injects multiple parallel wave ridges (concentric layered ripples)
-        float waveTrain = sin(dist * 0.45 - u_time * 30.0);
+        float normDist = clamp(1.0 - dist / 28.0, 0.0, 1.0);
         
-        // Soft edge envelope falloff
-        float envelope = 1.0 - dist / 28.0;
+        // Cubic spline smoothstep envelope (C1 smooth, flat derivatives at center and edge)
+        // Mathematically eliminates all high-frequency pixel noise, generating
+        // exactly one single, incredibly smooth, glassy wave crest!
+        float smoothEnvelope = normDist * normDist * (3.0 - 2.0 * normDist);
         
-        newHeight += u_mouseStrength * envelope * waveTrain * 0.45;
+        newHeight += u_mouseStrength * smoothEnvelope * 0.35;
       }
     }
     
@@ -170,15 +170,18 @@ const renderShaderSource = `
     vec2 uv = vec2(gl_FragCoord.x, u_resolution.y - gl_FragCoord.y) / u_resolution;
     
     // Displace the flipped UV (invert Y distortion to match flipped space)
-    vec2 distortedUv = uv + vec2(distortion.x, -distortion.y) * 0.42; 
+    // Refraction scale increased slightly to 0.46 for high-clarity sharp warps
+    vec2 distortedUv = uv + vec2(distortion.x, -distortion.y) * 0.46; 
     distortedUv = clamp(distortedUv, 0.001, 0.999);
     
     vec4 color = texture2D(u_image, distortedUv);
     
     // Add specular sunlight reflection glints
-    vec3 normal = normalize(vec3(-distortion.x * 3.5, 1.0, -distortion.y * 3.5));
+    // Normal multiplier increased to 4.5 for sharper, higher-contrast reflections
+    vec3 normal = normalize(vec3(-distortion.x * 4.5, 1.0, -distortion.y * 4.5));
     vec3 lightDir = normalize(vec3(-3.0, 10.0, 3.0));
-    float specular = pow(max(0.0, dot(normal, lightDir)), 35.0);
+    // Specular exponent raised to 50.0 for narrow, razor-sharp glistening edges
+    float specular = pow(max(0.0, dot(normal, lightDir)), 50.0);
     
     color.rgb += vec3(specular) * 0.35; // Specular glints
     
