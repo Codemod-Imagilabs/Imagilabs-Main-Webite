@@ -14,6 +14,7 @@ import PlaneAnimation from './components/PlaneAnimation';
 import MascotSection from './components/MascotSection';
 import Footer from './components/Footer';
 import { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -36,6 +37,7 @@ function App() {
 
   return (
     <div className="min-h-screen font-sans relative overflow-x-hidden transition-colors duration-300">
+      <Analytics />
       {/* App Content */}
       <div className="relative z-10 bg-transparent">
         <Navbar theme={theme} toggleTheme={toggleTheme} />
