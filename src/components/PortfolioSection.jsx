@@ -16,8 +16,8 @@ const PortfolioSection = () => {
     },
     {
       title: "TaskForge App",
-      category: "Production Tracker WebApp",
-      description: "A heavy-duty tracking tool for streamlining complex production workflows.",
+      category: "Production Workflow Tracker",
+      description: "A smart production management web app built to simplify and monitor complex manufacturing and workflow operations in real time.",
       image: taskForgeImg,
       link: "https://taskforge.imagilabs.in"
     },
