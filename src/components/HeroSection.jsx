@@ -120,26 +120,7 @@ const HeroSection = () => {
           We build intelligent, scalable, and secure digital solutions to help your business thrive in the modern world.
         </p>
 
-        {/* Email Input Form — Lavender in light mode */}
-        <form 
-          onSubmit={handleEmailSubmit} 
-          className="flex items-center bg-[#ABA6FF] dark:bg-white/[0.07] border border-[#9B95FF] dark:border-white/10 rounded-full p-1 pl-4 md:pl-6 shadow-[0_8px_40px_rgba(113,99,233,0.25)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-300 dark:hover:border-white/20"
-        >
-          <input 
-            type="email" 
-            placeholder="Please enter your E-mail" 
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="bg-transparent border-none outline-none text-black dark:text-white placeholder-gray-600 dark:placeholder-gray-500 w-48 md:w-80 font-light text-sm md:text-base"
-            required
-          />
-          <button 
-            type="submit" 
-            className="bg-brand-purple hover:bg-brand-purple/90 text-white font-medium py-2.5 px-6 md:py-3 md:px-8 rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] text-sm md:text-base"
-          >
-            Send Email
-          </button>
-        </form>
+        
       </div>
     </section>
   );
