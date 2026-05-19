@@ -1,7 +1,7 @@
 import React from 'react';
 import lilacImg from '../assets/portfolio/Lilacbysoi.jpeg';
 import testImg from '../assets/portfolio/test.jpeg';
-import taskForge from '../assets/portfolio/TaskForge.jpeg'
+import taskForge from '../assets/portfolio/Taskforge.jpeg';
 
 const PortfolioSection = () => {
   const projects = [
