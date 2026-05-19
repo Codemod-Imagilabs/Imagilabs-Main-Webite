@@ -1,6 +1,7 @@
 import React from 'react';
 import lilacImg from '../assets/portfolio/Lilacbysoi.jpeg';
 import testImg from '../assets/portfolio/test.jpeg';
+import taskForge from '../assets/portfolio/TaskForge.jpeg'
 
 const PortfolioSection = () => {
   const projects = [
@@ -14,7 +15,7 @@ const PortfolioSection = () => {
       title: "TaskForge App",
       category: "Production Tracker WebApp",
       description: "A heavy-duty tracking tool for streamlining complex production workflows.",
-      image: testImg
+      image: taskForge
     },
     {
       title: "Shree Maruthi Industries",
