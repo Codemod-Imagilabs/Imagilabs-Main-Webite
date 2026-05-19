@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 // Import Icons
-import reactIcon from '../assets/icons/React.png';
-import illustratorIcon from '../assets/icons/adobe-illustrator.png';
-import figmaIcon from '../assets/icons/figma.png';
-import dockerIcon from '../assets/icons/Docker.png';
-import githubIcon from '../assets/icons/github.png';
+import reactIcon from '../assets/icons/React.webp';
+import illustratorIcon from '../assets/icons/adobe-illustrator.webp';
+import figmaIcon from '../assets/icons/figma.webp';
+import dockerIcon from '../assets/icons/Docker.webp';
+import githubIcon from '../assets/icons/github.webp';
 
 
 const words = [

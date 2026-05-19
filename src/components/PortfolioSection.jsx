@@ -1,9 +1,9 @@
 import React from 'react';
-import lilacImg from '../assets/portfolio/Lilacbysoi.jpeg';
-import testImg from '../assets/portfolio/test.jpeg';
-import taskForgeImg from '../assets/portfolio/Taskforge.jpeg';
-import shiplyImg from '../assets/portfolio/SHIPLEY.jpeg'
-import gyanImg from '../assets/portfolio/GYNI.jpeg' 
+import lilacImg from '../assets/portfolio/Lilacbysoi.webp';
+import testImg from '../assets/portfolio/test.webp';
+import taskForgeImg from '../assets/portfolio/Taskforge.webp';
+import shiplyImg from '../assets/portfolio/SHIPLEY.webp'
+import gyanImg from '../assets/portfolio/GYNI.webp' 
 
 const PortfolioSection = () => {
   const projects = [

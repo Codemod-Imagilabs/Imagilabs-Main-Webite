@@ -1,11 +1,11 @@
 import React from 'react';
 
 // Import Logo Images
-import logoShipley from '../assets/company/image-removebg-preview.png';
-import logoShree from '../assets/company/image-removebg-preview (1).png';
-import logoAcademy from '../assets/company/image-removebg-preview (3).png';
-import logoNavStar from '../assets/company/image-removebg-preview (4).png';
-import logoLilac from '../assets/company/image-removebg-preview (6).png';
+import logoShipley from '../assets/company/image-removebg-preview.webp';
+import logoShree from '../assets/company/image-removebg-preview (1).webp';
+import logoAcademy from '../assets/company/image-removebg-preview (3).webp';
+import logoNavStar from '../assets/company/image-removebg-preview (4).webp';
+import logoLilac from '../assets/company/image-removebg-preview (6).webp';
 
 const logoData = [
   { id: 1, img: logoShipley, name: "Shipleywins" },

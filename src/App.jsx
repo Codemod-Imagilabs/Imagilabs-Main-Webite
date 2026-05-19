@@ -1,5 +1,5 @@
 import React from 'react';
-import homeBg from './assets/home-bg/Homepage.png';
+import homeBg from './assets/home-bg/Homepage.webp';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import LogoCarousel from './components/LogoCarousel';

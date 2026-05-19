@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../assets/logos/logo.png';
+import logo from '../assets/logos/logo.webp';
 
 const Footer = ({ theme }) => {
   return (
