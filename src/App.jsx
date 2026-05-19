@@ -1,4 +1,5 @@
 import React from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import homeBg from './assets/home-bg/Homepage.png';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
@@ -96,6 +97,7 @@ function App() {
         </main>
         <Footer theme={theme} />
       </div>
+      <SpeedInsights />
     </div>
   );
 }
