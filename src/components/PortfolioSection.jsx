@@ -1,33 +1,39 @@
 import React from 'react';
 import lilacImg from '../assets/portfolio/Lilacbysoi.jpeg';
 import testImg from '../assets/portfolio/test.jpeg';
-import taskForge from '../assets/portfolio/Taskforge.jpeg';
+import taskForgeImg from '../assets/portfolio/Taskforge.jpeg';
+import shiplyImg from '../assets/portfolio/SHIPLEY.jpeg'
+import gyanImg from '../assets/portfolio/GYNI.jpeg' 
 
 const PortfolioSection = () => {
   const projects = [
     {
-      title: "LilacbySoi",
-      category: "E-commerce Website",
-      description: "A premium floral e-commerce platform built for high conversions.",
-      image: lilacImg
+      title: "Lilac by Soi",
+      category: "Fashion Store",
+      description: "A modern fashion brand focused on elevated everyday wear with clean aesthetics, minimal styling, and trend-driven collections.",
+      image: lilacImg,
+      link: "https://lilacbysoi.in/"
     },
     {
       title: "TaskForge App",
       category: "Production Tracker WebApp",
       description: "A heavy-duty tracking tool for streamlining complex production workflows.",
-      image: taskForge
+      image: taskForgeImg,
+      link: "https://taskforge.imagilabs.in"
     },
     {
-      title: "Shree Maruthi Industries",
-      category: "Business Profile Website",
-      description: "Corporate identity and digital presence for a leading industrial manufacturer.",
-      image: testImg
+      title: "Shipley Wins",
+      category: "Business Development & Bid Strategy Platform",
+      description: "A global consulting and training platform helping organizations improve sales, proposal management, and business-winning strategies",
+      image: shiplyImg,
+      link: "https://www.shipleywins.com/"
     },
     {
-      title: "Voice Technology Startup",
-      category: "AI Product Portal",
-      description: "Voxera builds voice assistants for enterprise use. Branding refresh and demo portal.",
-      image: testImg
+      title: "Gyaniversity",
+      category: "Learning Platform",
+      description: "A modern education platform offering smart study resources, guidebooks, and AI-driven learning tools for students across India",
+      image: gyanImg,
+      link: "https://www.gyaniversity.com/"
     }
   ];
 
@@ -75,9 +81,14 @@ const PortfolioSection = () => {
 
                 {/* View Details Button */}
                 <div className="pt-2">
-                  <button className="px-8 py-3 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-[#7163E9] to-[#4B3AD9] shadow-[0_10px_25px_rgba(75,58,217,0.3)] hover:shadow-[0_15px_35px_rgba(75,58,217,0.5)] transition-all duration-300 hover:scale-105">
+                  <a 
+                    href={project.link || "#"} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-block px-8 py-3 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-[#7163E9] to-[#4B3AD9] shadow-[0_10px_25px_rgba(75,58,217,0.3)] hover:shadow-[0_15px_35px_rgba(75,58,217,0.5)] transition-all duration-300 hover:scale-105"
+                  >
                     View Details
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
