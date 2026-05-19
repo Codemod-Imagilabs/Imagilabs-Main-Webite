@@ -1,4 +1,6 @@
 import React from 'react';
+import lilacImg from '../assets/portfolio/Lilacbysoi.jpeg';
+import testImg from '../assets/portfolio/test.jpeg';
 
 const PortfolioSection = () => {
   const projects = [
@@ -6,25 +8,25 @@ const PortfolioSection = () => {
       title: "LilacbySoi",
       category: "E-commerce Website",
       description: "A premium floral e-commerce platform built for high conversions.",
-      gif: "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJmNXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxxXLyKHzBm/giphy.gif"
+      image: lilacImg
     },
     {
       title: "TaskForge App",
       category: "Production Tracker WebApp",
       description: "A heavy-duty tracking tool for streamlining complex production workflows.",
-      gif: "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJmNXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lTfO7a4U8uM0h2/giphy.gif"
+      image: testImg
     },
     {
       title: "Shree Maruthi Industries",
       category: "Business Profile Website",
       description: "Corporate identity and digital presence for a leading industrial manufacturer.",
-      gif: "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJmNXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKVUn7iM8FMEU24/giphy.gif"
+      image: testImg
     },
     {
       title: "Voice Technology Startup",
       category: "AI Product Portal",
       description: "Voxera builds voice assistants for enterprise use. Branding refresh and demo portal.",
-      gif: "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJmNXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6NXF6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKFv9S6E9D6v6eI/giphy.gif"
+      image: testImg
     }
   ];
 
@@ -46,9 +48,9 @@ const PortfolioSection = () => {
             <div key={index} className="group cursor-pointer">
               {/* Image Placeholder (Empty/Gray) */}
               <div className="aspect-[16/10] bg-white/60 dark:bg-white/[0.03] rounded-2xl md:rounded-3xl mb-6 md:mb-8 border border-white/80 dark:border-white/[0.05] group-hover:border-white dark:group-hover:border-white/[0.1] transition-all duration-500 overflow-hidden relative shadow-[0_8px_32px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] dark:shadow-none backdrop-blur-sm">
-                {project.gif && (
+                {project.image && (
                   <img 
-                    src={project.gif} 
+                    src={project.image} 
                     alt={project.title} 
                     className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
                   />
