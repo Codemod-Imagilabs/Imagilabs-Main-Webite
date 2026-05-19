@@ -127,7 +127,7 @@ const HeroSection = () => {
         >
           <input 
             type="email" 
-            placeholder="shahin.ki.jai@gmail.com" 
+            placeholder="Please enter your E-mail" 
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="bg-transparent border-none outline-none text-black dark:text-white placeholder-gray-600 dark:placeholder-gray-500 w-48 md:w-80 font-light text-sm md:text-base"
