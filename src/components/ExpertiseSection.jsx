@@ -47,7 +47,7 @@ const ExpertiseSection = () => {
   ];
 
   return (
-    <section className="w-full pt-4 pb-12 md:pb-24 bg-transparent relative overflow-hidden transition-colors duration-300">
+    <section className="w-full pt-16 md:pt-24 pb-12 md:pb-24 bg-transparent relative overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-12 md:mb-20">
