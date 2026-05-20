@@ -19,6 +19,14 @@ function App() {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'dark';
   });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -45,6 +53,8 @@ function App() {
             {/* Background PNG treated as a floating element */}
             <img 
               src="/Homepage.webp" 
+              srcSet="/Homepage-mobile.webp 800w, /Homepage.webp 1600w"
+              sizes="100vw"
               alt=""  
               fetchpriority="high"
               className="absolute top-[150px] left-0 w-screen pointer-events-none -z-10 scale-[1.15] md:scale-x-[1.15] md:scale-y-100 origin-top"
@@ -66,7 +76,7 @@ function App() {
             {/* 3D Mascot Character */}
             <div className="relative z-10">
               <Suspense fallback={null}>
-                <MascotSection />
+                {!isMobile && <MascotSection />}
               </Suspense>
             </div>
 
