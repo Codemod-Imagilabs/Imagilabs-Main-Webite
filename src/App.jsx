@@ -1,29 +1,44 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-// homeBg imported dynamically or loaded statically for SEO LCP Optimization
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import LogoCarousel from './components/LogoCarousel';
-import AboutSection from './components/AboutSection';
-import ExpertiseSection from './components/ExpertiseSection';
-import TrustSection from './components/TrustSection';
-import FAQSection from './components/FAQSection';
-import TestimonialsSection from './components/TestimonialsSection';
-import CTASection from './components/CTASection';
-import PortfolioSection from './components/PortfolioSection';
-import PlaneAnimation from './components/PlaneAnimation';
-const MascotSection = lazy(() => import('./components/MascotSection'));
-import Footer from './components/Footer';
 
+// Lazy-load sections below the fold to code-split heavy libraries (GSAP, Framer Motion)
+const AboutSection = lazy(() => import('./components/AboutSection'));
+const ExpertiseSection = lazy(() => import('./components/ExpertiseSection'));
+const TrustSection = lazy(() => import('./components/TrustSection'));
+const TestimonialsSection = lazy(() => import('./components/TestimonialsSection'));
+const CTASection = lazy(() => import('./components/CTASection'));
+const PortfolioSection = lazy(() => import('./components/PortfolioSection'));
+const PlaneAnimation = lazy(() => import('./components/PlaneAnimation'));
+const MascotSection = lazy(() => import('./components/MascotSection'));
+const Footer = lazy(() => import('./components/Footer'));
 
 function App() {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'dark';
   });
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    return typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  });
+  const [renderMascot, setRenderMascot] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const idleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1000));
+      const handle = idleCallback(() => setRenderMascot(true));
+      return () => {
+        if (window.cancelIdleCallback) {
+          window.cancelIdleCallback(handle);
+        } else {
+          clearTimeout(handle);
+        }
+      };
+    }
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
@@ -47,67 +62,60 @@ function App() {
       {/* App Content */}
       <div className="relative z-10 bg-transparent">
         <Navbar theme={theme} toggleTheme={toggleTheme} />
+        
         <main>
           {/* Main content area on black */}
           <div id="homepage" className="relative">
-            {/* Background PNG treated as a floating element */}
-            <img 
-              src="/Homepage.webp" 
-              srcSet="/Homepage-mobile.webp 800w, /Homepage.webp 1600w"
-              sizes="100vw"
-              alt=""  
-              fetchpriority="high"
-              className="absolute top-[150px] left-0 w-screen pointer-events-none -z-10 scale-[1.15] md:scale-x-[1.15] md:scale-y-100 origin-top"
-            />
             <div className="relative z-10">
               <HeroSection />
             </div>
           </div>
           
-          {/* About + Expertise share a wrapper so the plane can span both */}
-          <div className="relative">
+          {/* Lazy loaded parts wrapped in a single Suspense context */}
+          <Suspense fallback={null}>
+            <LogoCarousel />
 
-            <div id="about" className="relative z-10">
-              {/* Plane animation — left side, sits in the About section */}
-              <PlaneAnimation />
-              <AboutSection />
+            {/* About + Expertise share a wrapper so the plane can span both */}
+            <div className="relative">
+              <div id="about" className="relative z-10">
+                {/* Plane animation — left side, sits in the About section */}
+                <PlaneAnimation />
+                <AboutSection />
+              </div>
+
+              {/* 3D Mascot Character */}
+              <div className="relative z-10">
+                {!isMobile && renderMascot && <MascotSection />}
+              </div>
+
+              {/* Ambient Glows */}
+              <div id="services" className="relative z-10">
+                {/* Top Left Patch */}
+                <div className="absolute top-1/4 -left-32 w-[450px] h-[200px] bg-[#7163E9]/40 rounded-full blur-[100px] pointer-events-none -z-10 -rotate-12" />
+                <ExpertiseSection />
+                <PortfolioSection />
+              </div>
             </div>
 
-            {/* 3D Mascot Character */}
-            <div className="relative z-10">
-              <Suspense fallback={null}>
-                {!isMobile && <MascotSection />}
-              </Suspense>
+            <div className="relative">
+              {/* Middle Right Patch */}
+              <div className="absolute top-1/2 -right-32 w-[500px] h-[250px] bg-[#4B3AD9]/35 rounded-full blur-[110px] pointer-events-none -z-10 rotate-12 -translate-y-1/2" />
+              <TrustSection />
             </div>
 
-            {/* Ambient Glows */}
-            <div id="services" className="relative z-10">
-              {/* Top Left Patch */}
-              <div className="absolute top-1/4 -left-32 w-[450px] h-[200px] bg-[#7163E9]/40 rounded-full blur-[100px] pointer-events-none -z-10 -rotate-12" />
-              <ExpertiseSection />
-              <PortfolioSection />
+            <div className="relative">
+              {/* Bottom Left Patch */}
+              <div className="absolute top-1/3 -left-32 w-[450px] h-[200px] bg-[#7163E9]/40 rounded-full blur-[100px] pointer-events-none -z-10 -rotate-6" />
+              <TestimonialsSection />
             </div>
-          </div>
-
-          <div className="relative">
-            {/* Middle Right Patch */}
-            <div className="absolute top-1/2 -right-32 w-[500px] h-[250px] bg-[#4B3AD9]/35 rounded-full blur-[110px] pointer-events-none -z-10 rotate-12 -translate-y-1/2" />
-            <TrustSection />
-          </div>
-
-          <div className="relative">
-            {/* Bottom Left Patch */}
-            <div className="absolute top-1/3 -left-32 w-[450px] h-[200px] bg-[#7163E9]/40 rounded-full blur-[100px] pointer-events-none -z-10 -rotate-6" />
-            <TestimonialsSection />
             
-          </div>
-          
-          <div id="contact">
-            <CTASection />
-            
-          </div>
+            <div id="contact">
+              <CTASection />
+            </div>
+
+            <Footer theme={theme} />
+          </Suspense>
         </main>
-        <Footer theme={theme} />
       </div>
     </div>
   );

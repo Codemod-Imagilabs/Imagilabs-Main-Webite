@@ -6,13 +6,35 @@
     <link rel="apple-touch-icon" href="/img_fav.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Preconnect & Preload fonts -->
+    <!-- Preconnect & Preload fonts (Asynchronous / Non-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" />
+    </noscript>
 
     <!-- Preload LCP Image -->
     <link rel="preload" as="image" href="/Homepage.webp" imagesrcset="/Homepage-mobile.webp 800w, /Homepage.webp 1600w" imagesizes="100vw" fetchpriority="high" />
+
+    <style>
+      .hero-bg-static {
+        position: absolute;
+        top: 150px;
+        left: 0;
+        width: 100vw;
+        pointer-events: none;
+        z-index: -10;
+        transform: scale(1.15);
+        transform-origin: top;
+      }
+      @media (min-width: 768px) {
+        .hero-bg-static {
+          transform: scaleX(1.15) scaleY(1);
+        }
+      }
+    </style>
 
     <title>Imagilabs - The Creative Co.</title>
     <meta name="description" content="Building smart, scalable, and secure digital solutions designed for Modern businesses.." />
@@ -47,6 +69,15 @@
     </script>
   </head>
   <body>
+    <!-- Static LCP Hero Background (rendered instantly, bypasses React bundle execution delay) -->
+    <img 
+      src="/Homepage.webp" 
+      srcset="/Homepage-mobile.webp 800w, /Homepage.webp 1600w"
+      sizes="100vw"
+      alt=""  
+      fetchpriority="high"
+      class="hero-bg-static"
+    />
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
