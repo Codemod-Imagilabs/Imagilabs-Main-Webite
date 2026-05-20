@@ -1,5 +1,5 @@
-import React from 'react';
-import homeBg from './assets/home-bg/Homepage.webp';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
+// homeBg imported dynamically or loaded statically for SEO LCP Optimization
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import LogoCarousel from './components/LogoCarousel';
@@ -11,9 +11,9 @@ import TestimonialsSection from './components/TestimonialsSection';
 import CTASection from './components/CTASection';
 import PortfolioSection from './components/PortfolioSection';
 import PlaneAnimation from './components/PlaneAnimation';
-import MascotSection from './components/MascotSection';
+const MascotSection = lazy(() => import('./components/MascotSection'));
 import Footer from './components/Footer';
-import { useState, useEffect } from 'react';
+
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -44,8 +44,9 @@ function App() {
           <div id="homepage" className="relative">
             {/* Background PNG treated as a floating element */}
             <img 
-              src={homeBg} 
+              src="/Homepage.webp" 
               alt=""  
+              fetchpriority="high"
               className="absolute top-[150px] left-0 w-screen pointer-events-none -z-10 scale-[1.15] md:scale-x-[1.15] md:scale-y-100 origin-top"
             />
             <div className="relative z-10">
@@ -64,7 +65,9 @@ function App() {
 
             {/* 3D Mascot Character */}
             <div className="relative z-10">
-              <MascotSection />
+              <Suspense fallback={null}>
+                <MascotSection />
+              </Suspense>
             </div>
 
             {/* Ambient Glows */}

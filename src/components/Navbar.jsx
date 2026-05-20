@@ -5,9 +5,14 @@ const Navbar = ({ theme, toggleTheme }) => {
 
   return (
     <nav className="absolute top-0 w-full z-50 py-6 px-8 md:px-16 flex justify-between items-center bg-transparent">
-      {/* Logo */}
       <div className="flex items-center cursor-pointer">
-        <img src={logo} alt="Imagilabs Logo" className={`h-12 w-auto object-contain transition-all duration-300 ${isLight ? 'invert' : ''}`} />
+        <img 
+          src={logo} 
+          alt="Imagilabs Logo" 
+          width={235} 
+          height={66} 
+          className={`h-12 w-auto object-contain transition-all duration-300 ${isLight ? 'invert' : ''}`} 
+        />
       </div>
 
       {/* Right side: Links (desktop) and Toggle (always) */}
